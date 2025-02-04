@@ -65,7 +65,7 @@ export const NavItem: React.FC<NavItemProps> = ({
       className={`
         ${!shouldShow ? "hidden" : ""}
         ${isDragging ? "opacity-50" : ""}
-        ${item.level > 0 ? "ml-6 my-1" : ""}
+        ${item.level > 0 ? "ml-6 my-1 " : ""}
         ${isEditMode ? "bg-gray-100 hover:bg-salate-200" : "hover:bg-gray-50"}
         ${!item.visible ? "opacity-40" : ""}
         ${isEditMode && !item.isParent && item.level > 0 ? "cursor-move" : ""}

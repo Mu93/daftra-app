@@ -1,10 +1,13 @@
+import React from "react";
 import Dashboard from "./_comp/Dashboard";
 
-export default function Page({ children }: { children: React.ReactNode }) {
+const Page: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <>
       <Dashboard />
       {children}
     </>
   );
-}
+};
+
+export default Page;

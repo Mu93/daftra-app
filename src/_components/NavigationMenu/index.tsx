@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Settings, X, Check } from "lucide-react";
 import { NavItem } from "./NavItem";
 import { flattenNav, buildNavTree, API_URL, trackMove } from "./utils";
 import type { FlatNavItem, NavItem as NavItemType } from "./types";
+import { Check, Settings, X } from "lucide-react";
 
 export const NavigationMenu: React.FC = () => {
   const [isEditMode, setIsEditMode] = useState(false);

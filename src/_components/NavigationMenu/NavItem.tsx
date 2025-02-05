@@ -1,15 +1,9 @@
 "use client";
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
-import {
-  Edit,
-  Eye,
-  EyeOff,
-  GripVertical,
-  ChevronDown,
-  ChevronRight,
-} from "lucide-react";
+
 import type { NavItemProps, DragItem } from "./types";
+import { ChevronDown, ChevronRight, Edit, Eye, EyeOff, GripVertical } from "lucide-react";
 
 export const NavItem: React.FC<NavItemProps> = ({
   item,

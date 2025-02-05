@@ -1,11 +1,10 @@
 import React from "react";
 import Dashboard from "./_comp/Dashboard";
 
-const Page: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Page: React.FC = () => {
   return (
     <>
       <Dashboard />
-      {children}
     </>
   );
 };

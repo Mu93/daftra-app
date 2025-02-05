@@ -3,7 +3,14 @@ import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 
 import type { NavItemProps, DragItem } from "./types";
-import { ChevronDown, ChevronRight, Edit, Eye, EyeOff, GripVertical } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  Edit,
+  Eye,
+  EyeOff,
+  GripVertical,
+} from "lucide-react";
 
 export const NavItem: React.FC<NavItemProps> = ({
   item,
@@ -55,16 +62,24 @@ export const NavItem: React.FC<NavItemProps> = ({
 
   return (
     <div
-      ref={item.level > 0 && !item.isParent ? (node) => drag(drop(node)) : null}
+      ref={
+        item.level > 0 && !item.isParent
+          ? (node: HTMLDivElement | null) => {
+              if (node) {
+                drag(drop(node));
+              }
+            }
+          : null
+      }
       className={`
-        ${!shouldShow ? "hidden" : ""}
-        ${isDragging ? "opacity-50" : ""}
-        ${item.level > 0 ? "ml-6 my-1 " : ""}
-        ${isEditMode ? "bg-gray-100 hover:bg-salate-200" : "hover:bg-gray-50"}
-        ${!item.visible ? "opacity-40" : ""}
-        ${isEditMode && !item.isParent && item.level > 0 ? "cursor-move" : ""}
-        rounded-lg
-      `}
+    ${!shouldShow ? "hidden" : ""}
+    ${isDragging ? "opacity-50" : ""}
+    ${item.level > 0 ? "ml-6 my-1 " : ""}
+    ${isEditMode ? "bg-gray-100 hover:bg-salate-200" : "hover:bg-gray-50"}
+    ${!item.visible ? "opacity-40" : ""}
+    ${isEditMode && !item.isParent && item.level > 0 ? "cursor-move" : ""}
+    rounded-lg
+  `}
     >
       <div className="flex items-center p-3 mt-1">
         <div className="flex items-center flex-1 gap-2">

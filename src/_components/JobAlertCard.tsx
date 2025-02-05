@@ -20,7 +20,16 @@ function JobAlertCard() {
   );
 }
 
-const JobAlertCardUI = ({ jobTitle, jobCount, onSetAlert }) => {
+interface JobAlertCardUIProps {
+  jobTitle: string;
+  jobCount: number;
+  onSetAlert: () => void; // Adjust the function signature if needed
+}
+const JobAlertCardUI = ({
+  jobTitle,
+  jobCount,
+  onSetAlert,
+}: JobAlertCardUIProps) => {
   return (
     <div className="bg-green-600 text-white p-4 rounded-lg flex justify-between items-center w-full ">
       <div>

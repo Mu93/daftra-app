@@ -1,13 +1,14 @@
-import JobAlertCard from "@/_components/JobAlertCard";
-import JobList from "@/_components/JobList";
-import Navbar from "@/_components/Navbar";
-import { NavigationMenu } from "@/_components/NavigationMenu";
-import SortingBar from "@/_components/SortingBar";
+"use client";
+import JobAlertCard from "@/_components/dashboard/JobAlertCard";
+import JobList from "@/_components/dashboard/JobList";
+import Navbar from "@/_components/dashboard/Navbar";
+import { NavigationMenu } from "@/_components/dashboard/NavigationMenu";
+import SortingBar from "@/_components/dashboard/SortingBar";
 
 export default function Dashboard() {
   return (
     <div className="flex bg-gray-100 w-full">
-      <div className="hidden md:block w-[15%] ">
+      <div className="hidden md:flex items-center max-w-[40%]">
         <NavigationMenu />
       </div>
       <div className="flex flex-col relative w-full ">

@@ -1,5 +1,5 @@
 import React from "react";
-import Dashboard from "./_comp/Dashboard";
+import Dashboard from "./_pages/Dashboard";
 
 const Page: React.FC = () => {
   return (

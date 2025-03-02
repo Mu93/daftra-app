@@ -31,11 +31,11 @@ const NavigationMenuContent: React.FC = () => {
     startEditing,
     updateTitle,
     handleSave,
-    handleCancel,
+    handleCancel
   } = useNavigation();
 
   return (
-    <div className="bg-white shadow-lg rounded-lg h-full min-w-[18rem]">
+    <div className="bg-white shadow-lg h-full min-w-[18rem]">
       <div className="flex items-center justify-between p-4 border-b">
         <h2 className="text-xl font-semibold">Menu</h2>
         {isEditMode ? (

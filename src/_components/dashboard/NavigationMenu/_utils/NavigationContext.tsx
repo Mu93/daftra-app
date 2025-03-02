@@ -94,43 +94,51 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({
       return; // Don't allow the move if levels aren't the same
     }
 
-    // Collect all the children (and their children) of the moved item
+    // Check if target has the same parent as the moved item
+    if (movedItem.parentId !== targetItem.parentId) {
+      return; // Only allow moves within the same parent
+    }
+
+    // Collect all descendants that need to move with the parent
     const allDescendantIds = getDescendantIds(movedItem.id);
-    const childrenItems = allDescendantIds
-      .map((id) => newItems.find((item) => item.id === id))
-      .filter(Boolean) as FlatNavItem[];
 
-    // Collect all the indices to be moved (parent + all descendants)
-    const movedItemIndices = [
-      fromIndex,
-      ...childrenItems.map((child) =>
-        newItems.findIndex((item) => item.id === child.id)
-      ),
-    ].sort((a, b) => a - b);
+    // Get all indices to be moved (the parent and all its descendants)
+    const itemsToMove: { item: FlatNavItem; index: number }[] = [
+      { item: movedItem, index: fromIndex },
+    ];
 
-    // Create a copy of the items that will be moved
-    const movedItems = movedItemIndices.map((index) => newItems[index]);
+    // Add all descendants to the items to move
+    allDescendantIds.forEach((id) => {
+      const index = newItems.findIndex((item) => item.id === id);
+      if (index !== -1) {
+        itemsToMove.push({ item: newItems[index], index });
+      }
+    });
 
-    // Calculate target index adjustment
-    // If moving down the list, the target index needs to be adjusted
-    // because removing items above will shift the target position
-    let adjustedToIndex = toIndex;
-    const movingDown = fromIndex < toIndex;
+    // Sort by index to maintain the order
+    itemsToMove.sort((a, b) => a.index - b.index);
 
-    // Remove all items that need to be moved (in reverse order to maintain indices)
-    movedItemIndices
+    // Create a copy of items to move
+    const movedItemsData = itemsToMove.map(({ item }) => ({ ...item }));
+
+    // Remove items in reverse order to avoid index shifting issues
+    itemsToMove
       .slice()
-      .reverse()
-      .forEach((index) => {
+      .sort((a, b) => b.index - a.index) // Sort in descending order
+      .forEach(({ index }) => {
         newItems.splice(index, 1);
-        // Adjust the target index when moving items from above the target
-        if (movingDown && index < adjustedToIndex) {
-          adjustedToIndex--;
-        }
       });
 
-    // Insert the moved items at the adjusted position
-    newItems.splice(adjustedToIndex, 0, ...movedItems);
+    // Calculate the adjusted target index after removals
+    let adjustedToIndex = toIndex;
+    for (const { index } of itemsToMove) {
+      if (index < toIndex) {
+        adjustedToIndex--;
+      }
+    }
+
+    // Insert all moved items at the new position
+    newItems.splice(adjustedToIndex, 0, ...movedItemsData);
 
     setItems(newItems);
     trackMove(movedItem.id, fromIndex, adjustedToIndex);

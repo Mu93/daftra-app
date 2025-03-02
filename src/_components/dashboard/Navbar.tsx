@@ -13,8 +13,15 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import ProfileMenu from "./ProfileMenu";
+import { LayoutDashboard } from "lucide-react";
 
-export default function Navbar() {
+export default function Navbar({
+  toggleSidebar,
+  isSidebarOpen,
+}: {
+  toggleSidebar: () => void;
+  isSidebarOpen: boolean;
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
@@ -44,12 +51,25 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button
-          className="md:hidden text-white"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-        </button>
+        <div className="flex md:hidden items-center gap-2">
+          <button
+            className="md:hidden text-white flex gap-2 items-center"
+            onClick={() => toggleSidebar()}
+          >
+            {isSidebarOpen ? (
+              <FaTimes size={24} />
+            ) : (
+              <LayoutDashboard size={24} />
+            )}
+          </button>
+
+          <button
+            className="md:hidden text-white flex gap-2 items-center"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}

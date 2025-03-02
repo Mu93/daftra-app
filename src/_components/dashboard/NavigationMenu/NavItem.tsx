@@ -55,8 +55,12 @@ export const NavItem: React.FC<NavItemProps> = ({
     accept: "NAV_ITEM",
     canDrop: (draggedItem: DragItem) => {
       if (draggedItem.id === item.id) return false; // Prevent dropping on itself
-      // Allow dropping among items of the same level
-      return draggedItem.level === item.level;
+
+      // Allow dropping only among items of the same level AND with the same parent
+      return (
+        draggedItem.level === item.level &&
+        draggedItem.parentId === item.parentId
+      );
     },
     hover: (draggedItem: DragItem, monitor) => {
       if (!monitor.canDrop()) return;
